@@ -8,13 +8,27 @@ const compat = new FlatCompat({
 });
 
 module.exports = [
+  // ✅ Ignore folders
+  {
+    ignores: ["**/.venv/**"],
+  },
+
+  // ✅ Base Recommended
   js.configs.recommended,
+
+  // ✅ Project config
   ...compat.config({
     env: { 
       es2021: true, 
       node: true, 
       jest: true 
     },
+
+    // ✅ Allow k6 globals
+    globals: {
+      __ENV: "readonly",
+    },
+
     rules: {
       "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
       "no-console": "off",
@@ -22,3 +36,4 @@ module.exports = [
     }
   })
 ];
+
